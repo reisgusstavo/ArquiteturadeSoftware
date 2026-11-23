@@ -1,0 +1,29 @@
+@startuml
+title Padrão Singleton — GerenciadorPedidos
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+skinparam dpi 140
+skinparam defaultFontName DejaVu Sans
+skinparam roundCorner 8
+skinparam ArrowColor #333333
+skinparam ClassBorderColor #333333
+skinparam ClassBackgroundColor #FDFDFD
+hide empty members
+class GerenciadorPedidos <<Singleton>> {
+  -{static} instancia : GerenciadorPedidos
+  -pedidos : List<Pedido>
+  -proximoNumero : int
+  -GerenciadorPedidos()
+  +{static} getInstance() : GerenciadorPedidos
+  +criarPedido(Bebida) : Pedido
+  +getPedidos() : List<Pedido>
+}
+class Main
+Main ..> GerenciadorPedidos : getInstance()
+GerenciadorPedidos --> GerenciadorPedidos : instância única
+note bottom of GerenciadorPedidos
+  Construtor privado: ninguém dá "new".
+  getInstance() devolve sempre o mesmo objeto,
+  por isso o número do pedido nunca se repete.
+end note
+@enduml

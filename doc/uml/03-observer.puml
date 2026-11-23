@@ -1,0 +1,34 @@
+@startuml
+title Padrão Observer — aviso de novo pedido
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+skinparam dpi 140
+skinparam defaultFontName DejaVu Sans
+skinparam roundCorner 8
+skinparam ArrowColor #333333
+skinparam ClassBorderColor #333333
+skinparam ClassBackgroundColor #FDFDFD
+hide empty members
+class GerenciadorPedidos <<Subject>> {
+  -observadores : List<PedidoObserver>
+  +registrar(PedidoObserver)
+  +criarPedido(Bebida) : Pedido
+}
+interface PedidoObserver <<Observer>> {
+  +aoCriarPedido(Pedido)
+}
+class Barista <<ConcreteObserver>>
+class Caixa <<ConcreteObserver>>
+class Pedido {
+  -numero : int
+  -bebida : Bebida
+}
+GerenciadorPedidos o--> "0..*" PedidoObserver
+PedidoObserver <|.. Barista
+PedidoObserver <|.. Caixa
+GerenciadorPedidos ..> Pedido : cria e notifica
+note bottom of Barista
+  Barista: "Preparar o pedido #1"
+  Caixa: "Registrar R$ 10,00"
+end note
+@enduml

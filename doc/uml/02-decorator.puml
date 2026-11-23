@@ -1,0 +1,45 @@
+@startuml
+title Padrão Decorator — café + adicionais
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+skinparam dpi 140
+skinparam defaultFontName DejaVu Sans
+skinparam roundCorner 8
+skinparam ArrowColor #333333
+skinparam ClassBorderColor #333333
+skinparam ClassBackgroundColor #FDFDFD
+hide empty members
+interface Bebida <<Component>> {
+  +getDescricao() : String
+  +getPreco() : BigDecimal
+}
+class Cafe <<ConcreteComponent>> {
+  R$ 5,00
+}
+abstract class Adicional <<Decorator>> {
+  #bebida : Bebida
+  #{abstract} nome() : String
+  #{abstract} valor() : BigDecimal
+  +getDescricao() : String
+  +getPreco() : BigDecimal
+}
+class Leite <<ConcreteDecorator>> {
+  + R$ 2,00
+}
+class Chantilly <<ConcreteDecorator>> {
+  + R$ 3,00
+}
+class Chocolate <<ConcreteDecorator>> {
+  + R$ 4,00
+}
+Bebida <|.. Cafe
+Bebida <|.. Adicional
+Adicional o--> Bebida : embrulha
+Adicional <|-- Leite
+Adicional <|-- Chantilly
+Adicional <|-- Chocolate
+note bottom of Adicional
+  new Chantilly(new Leite(new Cafe()))
+  descrição: Café + Leite + Chantilly   preço: R$ 10,00
+end note
+@enduml

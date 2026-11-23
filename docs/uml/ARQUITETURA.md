@@ -18,7 +18,7 @@ Regra de dependência: de cima para baixo. A `view` nunca acessa o `dao`; SQL s�
 ## 4. Modelo de dados (banco `dbacademia`)
 ![ER](07-banco-er.png)
 
-## 5. Organização do repositório (mesmo molde do projeto UNIVEL)
+## 5. Organização do repositório
 ```
 academia/
 ├── README.md
